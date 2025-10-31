@@ -17,6 +17,17 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 var app = builder.Build();
 
+// Repositories
+builder.Services.AddScoped<IConferenceRepository, ConferenceRepository>();
+builder.Services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ITalkRepository, TalkRepository>();
+
+// Services
+builder.Services.AddScoped<IConferenceService, ConferenceService>();
+builder.Services.AddScoped<ISpeakerService, SpeakerService>();
+builder.Services.AddScoped<ITalkService, TalkService>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

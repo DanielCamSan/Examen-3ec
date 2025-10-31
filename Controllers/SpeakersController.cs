@@ -8,7 +8,6 @@ namespace _3ecexamen.Controllers
     [Route("api/v1/[controller]")]
     public class SpeakersController : ControllerBase
     {
-        //TODO  pista: usa speaker y talk service
         private readonly ISpeakerService _speakerService;
         private readonly ITalkService _talkService;
 
@@ -22,8 +21,12 @@ namespace _3ecexamen.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
-            //TODO
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var id = await _speakerService.CreateAsync(dto);
+
+            // Devuelve 201 Created apuntando al schedule del speaker
             return CreatedAtAction(nameof(GetSchedule), new { id }, new { id });
         }
 
@@ -31,9 +34,11 @@ namespace _3ecexamen.Controllers
         [HttpGet("{id:int}/schedule")]
         public async Task<IActionResult> GetSchedule(int id)
         {
-            //TODO
             var schedule = await _speakerService.GetScheduleAsync(id);
-            if (schedule == null) return NotFound();
+
+            if (schedule == null)
+                return NotFound(new { message = $"Speaker with ID {id} not found." });
+
             return Ok(schedule);
         }
 
@@ -41,12 +46,26 @@ namespace _3ecexamen.Controllers
         [HttpPost("talks")]
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
-            //TODO
-            var result = await _talkService.AddTalkAsync(dto);
-            if (!result.Success) return BadRequest(result.ErrorMessage);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            return Ok(new { message = "Talk added successfully" });
+                try
+                {
+                    await _talkService.AddTalkAsync(dto);
+                    return Ok(new { message = "Talk added successfully." });
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+            }
+
         }
     }
 }
+
 

@@ -11,7 +11,7 @@ using _3ecexamen.Data;
 namespace _3ecexamen.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031231927_InitSqlite")]
+    [Migration("20251031210921_InitSqlite")]
     partial class InitSqlite
     {
         /// <inheritdoc />

@@ -20,11 +20,32 @@ namespace _3ecexamen.Data
 
             // 1:N Conference -> Rooms (FK requerida, cascade)
             modelBuilder.Entity<Conference>()
-                .HasMany(f=> f.Rooms)
+                .HasMany(f => f.Rooms)
                 .WithOne(s => s.Conference)
-                .HasForeignKey(s=>s.ConferenceId)
+                .HasForeignKey(s => s.ConferenceId)
                 .OnDelete(DeleteBehavior.Cascade);
             // N:M con payload: Talk (clave compuesta)
+
+            modelBuilder.Entity<Talk>()
+        .HasKey(t => new { t.SpeakerId, t.RoomId, t.StartTime });
+            // clave compuesta (puede ser solo SpeakerId + RoomId si prefieres)
+
+            modelBuilder.Entity<Talk>()
+                .HasOne(t => t.Speaker)
+                .WithMany(s => s.Talks)
+                .HasForeignKey(t => t.SpeakerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Talk>()
+                .HasOne(t => t.Room)
+                .WithMany(r => r.Talks)
+                .HasForeignKey(t => t.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // (Opcional) Índice único: Room.Name dentro de una Conference
+            modelBuilder.Entity<Room>()
+                .HasIndex(r => new { r.ConferenceId, r.Name })
+                .IsUnique();
 
             // (Opcional) Índice único: Room.Name dentro de una Conference
 

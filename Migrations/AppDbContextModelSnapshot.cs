@@ -57,8 +57,7 @@ namespace _3ecexamen.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConferenceId", "Name")
-                        .IsUnique();
+                    b.HasIndex("ConferenceId");
 
                     b.ToTable("Rooms");
                 });
@@ -90,13 +89,13 @@ namespace _3ecexamen.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SpeakerId", "RoomId", "StartTime");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SpeakerId", "RoomId");
 
                     b.HasIndex("RoomId");
 

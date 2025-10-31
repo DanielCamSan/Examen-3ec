@@ -40,7 +40,9 @@ namespace _3ecexamen.Services
                 EndTime=t.EndTime,
                 StartTime=t.StartTime,
                 RoomId=t.RoomId,
-                SpeakerId=t.SpeakerId
+                Room=t.Room.Name,
+                SpeakerId=t.SpeakerId,
+                Speaker=t.Speaker.FullName
                 }).ToList()
                 }).ToList()
             };

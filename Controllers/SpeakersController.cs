@@ -21,7 +21,8 @@ namespace _3ecexamen.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
-            return Ok(await _speakers.CreateAsync(dto));
+            var id = await _speakers.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id }, new { id });
         }
 
         // GET: api/v1/speakers/{id}/schedule

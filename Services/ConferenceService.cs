@@ -1,69 +1,49 @@
 ﻿using _3ecexamen.DTOs;
-using _3ecexamen.Entities;
-using _3ecexamen.Repositories;
+using _3ecexamen.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace _3ecexamen.Services
+namespace _3ecexamen.Controllers
 {
-    public class ConferenceService : IConferenceService
+    [ApiController]
+    [Route("api/v1/[controller]")]
+    public class SpeakersController : ControllerBase
     {
-        //TODO
-        private readonly IConferenceRepository _confs;
-
-        public ConferenceService(IConferenceRepository confs)
+        //TODO  pista: usa speaker y talk service
+        private readonly ISpeakerService _speakers;
+        private readonly ITalkService _talks;
+        public SpeakersController(ISpeakerService speakers, ITalkService talks)
         {
-            _confs = confs;
+            _speakers = speakers;
+            _talks = talks;
         }
-        public async Task<int> CreateConferenceAsync(CreateConferenceDto dto)
+
+
+        // POST: api/v1/speakers
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
             //TODO
-            var conf = new Conference
-            {
-                Title = dto.Title,
-                City = dto.City,
-                StartDate = dto.StartDate,
-                EndDate = dto.EndDate,
-                Rooms = dto.Rooms.Select(r => new Room
-                {
-                    Name = r.Name
-                }).ToList()
-            };
-
-
-            return await _confs.AddAsync(conf);
+            var id = await _speakers.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id = id }, null);
         }
 
-        public async Task<ConferenceAgendaDto?> GetAgendaAsync(int id)
+        // GET: api/v1/speakers/{id}/schedule
+        [HttpGet("{id:int}/schedule")]
+        public async Task<IActionResult> GetSchedule(int id)
         {
-            var conf = await _confs.GetAgendaAsync(id);
-            if (conf == null) return null;
-            //TODO  pista: devuelve usando ConferenceAgendaDto
-            var conf = await _confs.GetAgendaAsync(id);
-            if (conf == null) return null;
+            //TODO
+            var data = await _speakers.GetScheduleAsync(id);
+            if (data == null) return NotFound();
+            return Ok(data);
+        }
 
-            var agenda = new ConferenceAgendaDto
-            {
-                Conference = conf.Title,
-                City = conf.City,
-                Rooms = conf.Rooms.Select(room => new RoomScheduleDto
-                {
-                    Room = room.Name,
-                    Talks = room.Talks
-                        .Select(t => new TalkDto
-                        {
-                            SpeakerId = t.SpeakerId,
-                            Speaker = t.Speaker.FullName,
-                            RoomId = room.Id,
-                            Room = room.Name,
-                            StartTime = t.StartTime,
-                            EndTime = t.EndTime
-                        })
-                        .OrderBy(t => t.StartTime)
-                        .ToList()
-                }).ToList()
-            };
-
-            return agenda;
-
+        // POST: api/v1/speakers/talks
+        [HttpPost("talks")]
+        public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
+        {
+            //TODO
+            await _talks.AddTalkAsync(dto);
+            return Ok();
         }
     }
 }

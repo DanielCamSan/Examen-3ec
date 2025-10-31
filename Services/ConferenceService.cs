@@ -7,14 +7,25 @@ namespace _3ecexamen.Services
     public class ConferenceService : IConferenceService
     {
         //TODO
+        private readonly IConferenceRepository _confs;
+        public ConferenceService(IConferenceRepository confs)
+        {
+            _confs = confs;
+        }
 
         public async Task<int> CreateConferenceAsync(CreateConferenceDto dto)
         {
             //TODO
             var entity = new Conference
             {
-            
+                Title = dto.Title,
+                City = dto.City,
+                StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc),
+                EndDate = DateTime.SpecifyKind(dto.EndDate, DateTimeKind.Utc)
             };
+            await _confs.AddAsync(entity);
+            await _confs.SaveChangesAsync();
+            return entity.Id;
 
         }
 

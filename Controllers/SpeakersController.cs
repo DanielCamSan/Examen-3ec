@@ -22,8 +22,8 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
             //TODO
-            var id = await _service.CreateConferenceAsync(dto);
-            return CreatedAtAction(nameof(GetAgenda), new { id }, new { id });
+            var id = await _speakerService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id }, new { id });
         }
 
         // GET: api/v1/speakers/{id}/schedule
@@ -31,13 +31,17 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> GetSchedule(int id)
         {
             //TODO
+            var data = await _speakerService.GetScheduleAsync(id);
+            if (data == null) return NotFound();
+            return Ok(data);
         }
 
         // POST: api/v1/speakers/talks
         [HttpPost("talks")]
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
-            //TODO
+            await _talkService.AddTalkAsync(dto);
+            return Ok();
         }
     }
 }

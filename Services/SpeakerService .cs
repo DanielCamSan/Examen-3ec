@@ -33,7 +33,7 @@ namespace _3ecexamen.Services
                         SpeakerId = sp.Id,
                         Speaker = sp.FullName,
                         RoomId = t.RoomId,
-                        Room = t.Room.Name,
+                        Room = t.Rooms.Name,
                         StartTime = t.StartTime,
                         EndTime = t.EndTime
                     }).ToList()

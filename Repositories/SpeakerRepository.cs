@@ -17,7 +17,7 @@ namespace _3ecexamen.Repositories
         public Task<Speaker?> GetScheduleAsync(int id) =>
             _ctx.Speakers
                 .Include(s => s.Talks)
-                    .ThenInclude(t => t.Room)
+                    .ThenInclude(t => t.Rooms)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
         public Task<bool> ExistsAsync(int id) =>

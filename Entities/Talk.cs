@@ -9,7 +9,7 @@ namespace _3ecexamen.Entities
         public Speaker Speaker { get; set; } = default!;
 
         public int RoomId { get; set; }
-        public Room Room { get; set; } = default!;
+        public Room Rooms { get; set; } = default!;
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

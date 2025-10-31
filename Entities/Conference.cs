@@ -13,6 +13,7 @@ namespace _3ecexamen.Entities
 
         //TODO
         // 1:N Conference -> Rooms
-        
+        public List<Room> Rooms { get; set; } = new List<Room>();
     }
 }
+

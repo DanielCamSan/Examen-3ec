@@ -14,3 +14,4 @@ namespace _3ecexamen.Entities
         public ICollection<Talk> Talks { get; set; } = new List<Talk>();
     }
 }
+

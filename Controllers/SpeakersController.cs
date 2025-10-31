@@ -38,7 +38,7 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
             await _talks.AddTalkAsync(dto);
-            return Ok();
+            return Created();
         }
     }
 }

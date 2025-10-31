@@ -9,12 +9,25 @@ namespace _3ecexamen.Controllers
     public class SpeakersController : ControllerBase
     {
         //TODO  pista: usa speaker y talk service
+        public readonly ISpeakerService _speakers;
+        public readonly ITalkService _talks;
+
+        public SpeakersController(ISpeakerService speakers, ITalkService talks)
+        {
+            _speakers = speakers;
+            _talks = talks;
+        }
 
         // POST: api/v1/speakers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
             //TODO
+            if (!ModelState.IsValid) throw new ArgumentException();
+
+            int res=await _speakers.CreateAsync(dto);
+            return CreatedAtAction(nameof(Create), res);
+
         }
 
         // GET: api/v1/speakers/{id}/schedule

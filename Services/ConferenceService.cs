@@ -34,7 +34,12 @@ namespace _3ecexamen.Services
             var conf = await _confs.GetAgendaAsync(id);
             if (conf == null) return null;
             //TODO  pista: devuelve usando ConferenceAgendaDto
-           
+            return new ConferenceAgendaDto
+            {
+                Conference = conf.Title,
+                City = conf.City,
+                Rooms = (List<RoomScheduleDto>)conf.Rooms
+            };
         }
     }
 }

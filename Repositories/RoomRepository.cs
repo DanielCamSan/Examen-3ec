@@ -1,6 +1,7 @@
 ﻿using _3ecexamen.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace _3ecexamen.Repositories
 {
@@ -12,6 +13,7 @@ namespace _3ecexamen.Repositories
         public Task<bool> ExistsAsync(int id)
         {
             //TODO
+            return _ctx.Rooms.AnyAsync(r => r.Id == id);
         }
     }
 }

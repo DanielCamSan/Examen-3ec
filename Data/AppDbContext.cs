@@ -28,8 +28,6 @@ namespace _3ecexamen.Data
             modelBuilder.Entity<Talk>()
                 .HasKey(t => new { t.SpeakerId, t.RoomId });
             // (Opcional) Índice único: Room.Name dentro de una Conference
-
-           
         }
     }
 }

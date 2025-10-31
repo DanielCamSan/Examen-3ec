@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace _3ecexamen.Migrations
 {
     /// <inheritdoc />
-    public partial class InitSqlite : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,7 +72,7 @@ namespace _3ecexamen.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Talks", x => new { x.SpeakerId, x.RoomId, x.StartTime });
+                    table.PrimaryKey("PK_Talks", x => new { x.SpeakerId, x.RoomId });
                     table.ForeignKey(
                         name: "FK_Talks_Rooms_RoomId",
                         column: x => x.RoomId,
@@ -88,10 +88,9 @@ namespace _3ecexamen.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rooms_ConferenceId_Name",
+                name: "IX_Rooms_ConferenceId",
                 table: "Rooms",
-                columns: new[] { "ConferenceId", "Name" },
-                unique: true);
+                column: "ConferenceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Talks_RoomId",

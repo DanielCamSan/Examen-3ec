@@ -7,11 +7,6 @@ namespace _3ecexamen.Services
     public class ConferenceService : IConferenceService
     {
         //TODO
-        private readonly IConferenceRepository _confs;
-        public ConferenceService(IConferenceRepository confs)
-        {
-            _confs = confs;
-        }
 
         public async Task<int> CreateConferenceAsync(CreateConferenceDto dto)
         {

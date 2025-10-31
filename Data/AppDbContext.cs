@@ -22,7 +22,7 @@ namespace _3ecexamen.Data
             modelBuilder.Entity<Conference>()
                 .HasMany(c => c.Rooms)
                 .WithOne(r => r.Conference)
-                .HasForeignKey(r => r.RoomId)
+                .HasForeignKey(r => r.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // N:M con payload: Talk (clave compuesta)

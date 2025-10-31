@@ -13,6 +13,9 @@ namespace _3ecexamen.Entities
 
         //TODO
         // 1:N Conference -> Rooms
-        
+
+        public int RoomId { get; set; }
+        public Room Room { get; set; } = default!;
+
     }
 }

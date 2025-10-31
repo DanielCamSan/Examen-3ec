@@ -14,7 +14,7 @@ namespace _3ecexamen.Repositories
 
         public Task<Conference?> GetAgendaAsync(int id) =>
             _ctx.Conferences
-                .Include(c => c.Rooms)
+                .Include(c => c.Room)
                     .ThenInclude(r => r.Talks)
                         .ThenInclude(t => t.Speaker)
                 .FirstOrDefaultAsync(c => c.Id == id);

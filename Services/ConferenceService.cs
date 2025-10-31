@@ -39,7 +39,18 @@ namespace _3ecexamen.Services
                 Rooms = conf.Rooms
                     .OrderBy(r => r.Name).Select(r => new RoomScheduleDto
                     {
-                        Room = r.Name
+                        Room = r.Name,
+                        Talks = r.Talks.OrderBy(t => t.StartTime)
+                                    .Select(t => new TalkDto
+                                    {
+                                        SpeakerId = t.SpeakerId,
+                                        Speaker = t.Speaker.FullName,
+                                        RoomId = t.RoomId,
+                                        Room = t.Room.Name,
+                                        StartTime = t.StartTime,
+                                        EndTime = t.EndTime,
+                                    }).ToList()
+
                     }).ToList()
             };
            

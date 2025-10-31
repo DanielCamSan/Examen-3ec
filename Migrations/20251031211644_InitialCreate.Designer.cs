@@ -11,8 +11,8 @@ using _3ecexamen.Data;
 namespace _3ecexamen.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031231927_InitSqlite")]
-    partial class InitSqlite
+    [Migration("20251031211644_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,13 +93,13 @@ namespace _3ecexamen.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SpeakerId", "RoomId", "StartTime");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SpeakerId", "RoomId");
 
                     b.HasIndex("RoomId");
 

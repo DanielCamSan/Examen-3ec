@@ -35,6 +35,9 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> GetSchedule(int id)
         {
             //TODO
+            var schedule = await _speakers.GetScheduleAsync(id);
+            if (schedule == null) return NotFound();
+            return Ok(schedule);
         }
 
         // POST: api/v1/speakers/talks
@@ -42,6 +45,9 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
             //TODO
+            if (!ModelState.IsValid) throw new ArgumentException();
+            await _talks.AddTalkAsync(dto);
+            return Created();
         }
     }
 }

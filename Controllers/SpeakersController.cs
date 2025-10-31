@@ -8,27 +8,51 @@ namespace _3ecexamen.Controllers
     [Route("api/v1/[controller]")]
     public class SpeakersController : ControllerBase
     {
-        //TODO  pista: usa speaker y talk service
+        private readonly ISpeakerService _speakers;
+        private readonly ITalkService _talks;
+
+        public SpeakersController(ISpeakerService speakers, ITalkService talks)
+        {
+            _speakers = speakers;
+            _talks = talks;
+        }
 
         // POST: api/v1/speakers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
-            //TODO
+            var id = await _speakers.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id }, null);
         }
 
         // GET: api/v1/speakers/{id}/schedule
         [HttpGet("{id:int}/schedule")]
         public async Task<IActionResult> GetSchedule(int id)
         {
-            //TODO
+            var schedule = await _speakers.GetScheduleAsync(id);
+            if (schedule == null) return NotFound();
+            return Ok(schedule);
         }
 
         // POST: api/v1/speakers/talks
         [HttpPost("talks")]
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
-            //TODO
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                await _talks.AddTalkAsync(dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { error = ex.Message });
+            }
         }
     }
 }

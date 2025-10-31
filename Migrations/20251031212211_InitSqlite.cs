@@ -72,7 +72,7 @@ namespace _3ecexamen.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Talks", x => new { x.SpeakerId, x.RoomId, x.StartTime });
+                    table.PrimaryKey("PK_Talks", x => new { x.SpeakerId, x.RoomId });
                     table.ForeignKey(
                         name: "FK_Talks_Rooms_RoomId",
                         column: x => x.RoomId,

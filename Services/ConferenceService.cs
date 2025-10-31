@@ -1,6 +1,7 @@
 ﻿using _3ecexamen.DTOs;
 using _3ecexamen.Entities;
 using _3ecexamen.Repositories;
+using SQLitePCL;
 
 namespace _3ecexamen.Services
 {
@@ -37,7 +38,7 @@ namespace _3ecexamen.Services
             return new ConferenceAgendaDto
             {
                 Conference = conf.Title,
-                City = conf.City,
+                City = conf.City
             }; 
 
 

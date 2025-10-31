@@ -7,7 +7,7 @@ namespace _3ecexamen.Services
 {
     public class ConferenceService : IConferenceService
     {
-        private readonly IConferenceRepository _confs; // <--- ADICIÓN
+        private readonly IConferenceRepository _confs;
 
         public ConferenceService(IConferenceRepository confs) => _confs = confs;
 

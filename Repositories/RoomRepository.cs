@@ -11,7 +11,12 @@ namespace _3ecexamen.Repositories
 
         public Task<bool> ExistsAsync(int id)
         {
-            //TODO
+           if (id == null)
+           {
+                return null;
+           }
+           
+            
         }
     }
 }

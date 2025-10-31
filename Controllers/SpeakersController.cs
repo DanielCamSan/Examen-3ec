@@ -9,12 +9,14 @@ namespace _3ecexamen.Controllers
     public class SpeakersController : ControllerBase
     {
         //TODO  pista: usa speaker y talk service
+        private readonly ISpeakerService _speakerService;
+        privaTE 
 
         // POST: api/v1/speakers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
-            //TODO
+            var items=awa
         }
 
         // GET: api/v1/speakers/{id}/schedule

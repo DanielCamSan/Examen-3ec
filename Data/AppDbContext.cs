@@ -29,6 +29,9 @@ namespace _3ecexamen.Data
             modelBuilder.Entity <Talk>()
                 .HasKey(t => new { t.SpeakerId, t.RoomId,t.StartTime });
             // (Opcional) Índice único: Room.Name dentro de una Conference
+            modelBuilder.Entity <Room>()
+                .HasIndex(r => new { r.ConferenceId, r.Name })
+                .IsUnique();
         }
     }
 }

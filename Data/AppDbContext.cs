@@ -18,8 +18,15 @@ namespace _3ecexamen.Data
         {
             //TODO
 
-            // 1:N Conference -> Rooms (FK requerida, cascade)
+            // 1:N Conference -> Rooms (FK requerida, cascade) : HECHO
+            modelBuilder.Entity<Room>()
+                .HasOne(p => p.Conference)
+                .WithMany(c => c.Rooms)
+                .HasForeignKey(c => c.ConferenceId)
+                .OnDelete(DeleteBehavior.Cascade);
             // N:M con payload: Talk (clave compuesta)
+            modelBuilder.Entity<Talk>()
+                .HasKey(t => new { t.SpeakerId, t.RoomId, t.StartTime, t.EndTime });
             // (Opcional) Índice único: Room.Name dentro de una Conference
 
         }

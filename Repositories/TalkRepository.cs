@@ -13,6 +13,7 @@ namespace _3ecexamen.Repositories
         public async Task AddAsync(Talk talk) => await _ctx.Talks.AddAsync(talk);
 
         // Overlap si: (start < existing.End) && (end > existing.Start)
+
         public Task<bool> HasOverlapAsync(int roomId, DateTime start, DateTime end) =>
             _ctx.Talks.AnyAsync(t => t.RoomId == roomId
                                   && start < t.EndTime

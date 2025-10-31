@@ -13,11 +13,22 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
+builder.Services.AddScoped<IConferenceRepository, ConferenceRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+builder.Services.AddScoped<ITalkRepository, TalkRepository>();
+
+builder.Services.AddScoped<IConferenceService, ConferenceService>();
+builder.Services.AddScoped<ISpeakerService, SpeakerService>();
+builder.Services.AddScoped<ITalkService, TalkService>();
+
+
 //TODO 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

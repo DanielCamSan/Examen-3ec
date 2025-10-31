@@ -28,5 +28,6 @@ namespace _3ecexamen.Controllers
             if (data == null) return NotFound();
             return Ok(data);
         }
+
     }
 }

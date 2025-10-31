@@ -12,7 +12,6 @@ namespace _3ecexamen.Entities
         public Room Room { get; set; } = default!;
 
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; 
-
+        public DateTime EndTime { get; set; }
     }
 }

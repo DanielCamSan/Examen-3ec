@@ -44,6 +44,11 @@ namespace _3ecexamen.Data
 
             // (Opcional) Índice único: Room.Name dentro de una Conference
 
+            modelBuilder.Entity<Room>()
+                .HasIndex(r => new { r.Name, r.ConferenceId })
+                .IsUnique();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

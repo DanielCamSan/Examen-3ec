@@ -6,7 +6,7 @@ namespace _3ecexamen.Services
 {
     public class ConferenceService : IConferenceService
     {
-        //TODO
+        //TODO DONE
         private readonly IConferenceRepository _confs;
 
         public ConferenceService(IConferenceRepository confs)
@@ -34,8 +34,8 @@ namespace _3ecexamen.Services
         {
             var conf = await _confs.GetAgendaAsync(id);
             if (conf == null) return null;
-            //TODO  pista: devuelve usando ConferenceAgendaDto
-            return new ConferenceAgendaDto
+            //TODO  pista: devuelve usando ConferenceAgendaDto DONE VAAAAMOOOOOOOOOOOOOOOOO
+            return new ConferenceAgendaDto 
             {
                 Conference = conf.Title,
                 City = conf.City,

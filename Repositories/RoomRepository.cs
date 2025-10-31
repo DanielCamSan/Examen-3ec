@@ -1,4 +1,5 @@
-﻿using _3ecexamen.Data;
+﻿// Repositories/RoomRepository.cs
+using _3ecexamen.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -11,7 +12,8 @@ namespace _3ecexamen.Repositories
 
         public Task<bool> ExistsAsync(int id)
         {
-            //TODO
+            // TODO: Completar la lógica
+            return _ctx.Rooms.AnyAsync(r => r.Id == id); 
         }
     }
 }

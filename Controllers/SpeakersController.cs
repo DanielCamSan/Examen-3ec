@@ -12,9 +12,11 @@ namespace _3ecexamen.Controllers
 
         private readonly ISpeakerService _speakerService;
         private readonly ITalkService _talkService;
-        public SpeakersController(ISpeakerService speakerService, ITalkService talkService)
+        public SpeakersController(ISpeakerService speakerService)
         {
             _speakerService = speakerService;
+        }
+        public SpeakersController(ITalkService talkService) { 
             _talkService = talkService;
         }
 

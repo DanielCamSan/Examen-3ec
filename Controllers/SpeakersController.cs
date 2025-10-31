@@ -46,26 +46,28 @@ namespace _3ecexamen.Controllers
         [HttpPost("talks")]
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-                try
-                {
-                    await _talkService.AddTalkAsync(dto);
-                    return Ok(new { message = "Talk added successfully." });
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(new { message = ex.Message });
-                }
-                catch (InvalidOperationException ex)
-                {
-                    return BadRequest(new { message = ex.Message });
-                }
+            try
+            {
+                await _talkService.AddTalkAsync(dto);
+                return Ok(new { message = "Talk added successfully." });
             }
-
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
+
     }
 }
+
+   
+
 
 

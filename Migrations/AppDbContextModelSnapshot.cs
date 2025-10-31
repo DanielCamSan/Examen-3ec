@@ -57,8 +57,7 @@ namespace _3ecexamen.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConferenceId", "Name")
-                        .IsUnique();
+                    b.HasIndex("ConferenceId");
 
                     b.ToTable("Rooms");
                 });

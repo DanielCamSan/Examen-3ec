@@ -42,7 +42,11 @@ namespace _3ecexamen.Data
                 .WithMany(r => r.Talks)
                 .HasForeignKey(t => t.RoomId);
 
+            modelBuilder.Entity<Room>()
+                .HasIndex(r => new { r.ConferenceId, r.Name })
+                .IsUnique();
 
+          
 
         }
     }

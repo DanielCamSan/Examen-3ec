@@ -22,6 +22,14 @@ namespace _3ecexamen.Data
             // N:M con payload: Talk (clave compuesta)
             // (Opcional) Índice único: Room.Name dentro de una Conference
 
+            modelBuilder.Entity<Conference>(c =>
+            {
+                c.HasMany(c => c.Rooms)
+                .WithOne(room=>room.Conference)
+                .HasForeignKey(room => room.ConferenceId)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace _3ecexamen.Entities
 {
-    // Join entity for N:M between Speaker and Room, with payload (date/time).
+    // Join entity for N:M between Speaker and Room, with payload (date/time)
     public class Talk
     {
         public int SpeakerId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Net.Http.Headers;
 
 namespace _3ecexamen.Entities
 {
@@ -13,6 +14,7 @@ namespace _3ecexamen.Entities
 
         //TODO
         // 1:N Conference -> Rooms
+        public ICollection<Room> Rooms { get; set; } = new List<Room>(); 
         
     }
 }

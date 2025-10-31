@@ -1,5 +1,6 @@
 using _3ecexamen.Data;
 using _3ecexamen.Repositories;
+
 using _3ecexamen.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,15 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
 //TODO 
+builder.Services.AddScoped<IConferenceRepository, ConferenceRepository>();
+builder.Services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+builder.Services.AddScoped<ITalkRepository, TalkRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+builder.Services.AddScoped<IConferenceService, ConferenceService>();
+builder.Services.AddScoped<ITalkService, TalkService>();
+builder.Services.AddScoped<ISpeakerService, SpeakerService>();
+
 
 var app = builder.Build();
 

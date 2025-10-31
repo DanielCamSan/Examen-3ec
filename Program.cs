@@ -2,6 +2,7 @@ using _3ecexamen.Data;
 using _3ecexamen.Repositories;
 using _3ecexamen.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,17 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 //TODO 
 
 var app = builder.Build();
+
+builder.Services.AddScoped<IConferenceRepository, ConferenceRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ITalkRepository, TalkRepository>();
+builder.Services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+builder.Services.AddScoped<IConferenceService, ConferenceService>();
+builder.Services.AddScoped<ITalkService, TalkService>();
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

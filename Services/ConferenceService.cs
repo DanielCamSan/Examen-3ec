@@ -16,6 +16,17 @@ namespace _3ecexamen.Services
         public async Task<int> CreateConferenceAsync(CreateConferenceDto dto)
         {
             //TODO
+            var conf = new Conference
+            {
+                Title = dto.Title,
+                City = dto.City,
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate
+            };
+
+            await _confs.AddAsync(conf);
+            await _confs.SaveChangesAsync();
+            return conf.Id;
         }
 
         public async Task<ConferenceAgendaDto?> GetAgendaAsync(int id)

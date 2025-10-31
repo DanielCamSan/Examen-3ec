@@ -10,7 +10,7 @@ namespace _3ecexamen.DTOs
         [Required] public string FullName { get; set; } = default!;
         [Required] public string TopicArea { get; set; } = default!;
     }
-
+    
     public class TalkDto
     {
         public int SpeakerId { get; set; }

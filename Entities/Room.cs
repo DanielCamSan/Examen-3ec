@@ -10,7 +10,8 @@ namespace _3ecexamen.Entities
         public int ConferenceId { get; set; }
         public Conference Conference { get; set; } = default!;
 
-        // N:M Speakers via Talk
+     
         public ICollection<Talk> Talks { get; set; } = new List<Talk>();
     }
 }
+

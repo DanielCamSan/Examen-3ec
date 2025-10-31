@@ -1,26 +1,41 @@
 ﻿using _3ecexamen.Data;
 using _3ecexamen.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace _3ecexamen.Repositories
 {
     public class SpeakerRepository : ISpeakerRepository
     {
-        private readonly AppDbContext _ctx;
-        public SpeakerRepository(AppDbContext ctx) => _ctx = ctx;
+        private readonly AppDbContext _db;
 
-        public Task<int> SaveChangesAsync() => _ctx.SaveChangesAsync();
+        public SpeakerRepository(AppDbContext db)
+        {
+            _db = db;
+        }
 
-        public async Task AddAsync(Speaker speaker) => await _ctx.Speakers.AddAsync(speaker);
+        public async Task AddAsync(Speaker speaker)
+        {
+            await _db.Speakers.AddAsync(speaker);
+        }
 
-        public Task<Speaker?> GetScheduleAsync(int id) =>
-            _ctx.Speakers
+        
+        public async Task<Speaker?> GetScheduleAsync(int id)
+        {
+            return await _db.Speakers
                 .Include(s => s.Talks)
                     .ThenInclude(t => t.Room)
+                        .ThenInclude(r => r.Conference)
                 .FirstOrDefaultAsync(s => s.Id == id);
+        }
 
-        public Task<bool> ExistsAsync(int id) =>
-            _ctx.Speakers.AnyAsync(s => s.Id == id);
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _db.Speakers.AnyAsync(s => s.Id == id);
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _db.SaveChangesAsync();
+        }
     }
 }

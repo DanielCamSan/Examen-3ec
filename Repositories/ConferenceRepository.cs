@@ -1,24 +1,35 @@
 ﻿using _3ecexamen.Data;
 using _3ecexamen.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace _3ecexamen.Repositories
 {
     public class ConferenceRepository : IConferenceRepository
     {
-        private readonly AppDbContext _ctx;
-        public ConferenceRepository(AppDbContext ctx) => _ctx = ctx;
+        private readonly AppDbContext _db;
 
-        public async Task AddAsync(Conference conf) => await _ctx.Conferences.AddAsync(conf);
+        public ConferenceRepository(AppDbContext db)
+        {
+            _db = db;
+        }
 
-        public Task<Conference?> GetAgendaAsync(int id) =>
-            _ctx.Conferences
+        public async Task AddAsync(Conference conf)
+        {
+            await _db.Conferences.AddAsync(conf);
+        }
+
+        public async Task<Conference?> GetAgendaAsync(int id)
+        {
+            return await _db.Conferences
                 .Include(c => c.Rooms)
                     .ThenInclude(r => r.Talks)
                         .ThenInclude(t => t.Speaker)
                 .FirstOrDefaultAsync(c => c.Id == id);
+        }
 
-        public Task<int> SaveChangesAsync() => _ctx.SaveChangesAsync();
+        public Task<int> SaveChangesAsync()
+        {
+            return _db.SaveChangesAsync();
+        }
     }
 }

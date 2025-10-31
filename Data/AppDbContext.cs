@@ -16,12 +16,42 @@ namespace _3ecexamen.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO
+            base.OnModelCreating(modelBuilder);
 
-            // 1:N Conference -> Rooms (FK requerida, cascade)
-            // N:M con payload: Talk (clave compuesta)
-            // (Opcional) Índice único: Room.Name dentro de una Conference
+           
+            modelBuilder.Entity<Room>(e =>
+            {
+                e.HasKey(x => x.Id);
+                e.Property(x => x.Name).IsRequired().HasMaxLength(100);
 
+                e.HasOne(x => x.Conference)
+                 .WithMany(c => c.Rooms)
+                 .HasForeignKey(x => x.ConferenceId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
+
+       
+            modelBuilder.Entity<Talk>(e =>
+            {
+                e.HasKey(t => new { t.SpeakerId, t.RoomId, t.StartTime });
+                e.Property(t => t.StartTime).IsRequired();
+                e.Property(t => t.EndTime).IsRequired();
+
+                e.HasOne(t => t.Speaker)
+                 .WithMany(s => s.Talks)
+                 .HasForeignKey(t => t.SpeakerId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+                e.HasOne(t => t.Room)
+                 .WithMany(r => r.Talks)
+                 .HasForeignKey(t => t.RoomId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
+
+       
+            modelBuilder.Entity<Room>()
+                        .HasIndex(r => new { r.ConferenceId, r.Name })
+                        .IsUnique();
         }
     }
 }

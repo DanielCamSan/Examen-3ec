@@ -1,23 +1,36 @@
 ﻿using _3ecexamen.Data;
 using _3ecexamen.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace _3ecexamen.Repositories
 {
     public class TalkRepository : ITalkRepository
     {
-        private readonly AppDbContext _ctx;
-        public TalkRepository(AppDbContext ctx) => _ctx = ctx;
+        private readonly AppDbContext _db;
 
-        public async Task AddAsync(Talk talk) => await _ctx.Talks.AddAsync(talk);
+        public TalkRepository(AppDbContext db)
+        {
+            _db = db;
+        }
 
-        // Overlap si: (start < existing.End) && (end > existing.Start)
-        public Task<bool> HasOverlapAsync(int roomId, DateTime start, DateTime end) =>
-            _ctx.Talks.AnyAsync(t => t.RoomId == roomId
-                                  && start < t.EndTime
-                                  && end > t.StartTime);
+        public async Task AddAsync(Talk talk)
+        {
+            await _db.Talks.AddAsync(talk);
+        }
 
-        public Task<int> SaveChangesAsync() => _ctx.SaveChangesAsync();
+        
+        public async Task<bool> HasOverlapAsync(int roomId, DateTime start, DateTime end)
+        {
+            return await _db.Talks
+                .AnyAsync(t =>
+                    t.RoomId == roomId &&
+                    t.StartTime < end &&
+                    t.EndTime > start);
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _db.SaveChangesAsync();
+        }
     }
 }

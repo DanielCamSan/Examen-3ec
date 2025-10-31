@@ -8,11 +8,19 @@ namespace _3ecexamen.Services
     {
         private readonly ISpeakerRepository _speakers;
 
-        public SpeakerService(ISpeakerRepository speakers) => _speakers = speakers;
+        public SpeakerService(ISpeakerRepository speakers)
+        {
+            _speakers = speakers;
+        }
 
         public async Task<int> CreateAsync(CreateSpeakerDto dto)
         {
-            var entity = new Speaker { FullName = dto.FullName, TopicArea = dto.TopicArea };
+            var entity = new Speaker
+            {
+                FullName = dto.FullName.Trim(),
+                TopicArea = dto.TopicArea.Trim()
+            };
+
             await _speakers.AddAsync(entity);
             await _speakers.SaveChangesAsync();
             return entity.Id;
@@ -21,22 +29,25 @@ namespace _3ecexamen.Services
         public async Task<SpeakerScheduleDto?> GetScheduleAsync(int id)
         {
             var sp = await _speakers.GetScheduleAsync(id);
-            if (sp == null) return null;
+            if (sp is null) return null;
+
+            var slots = sp.Talks
+                .OrderBy(t => t.StartTime)
+                .Select(t => new TalkDto
+                {
+                    SpeakerId = t.SpeakerId,
+                    Speaker = sp.FullName,
+                    RoomId = t.RoomId,
+                    Room = t.Room.Name,
+                    StartTime = t.StartTime,
+                    EndTime = t.EndTime
+                })
+                .ToList();
 
             return new SpeakerScheduleDto
             {
                 Speaker = sp.FullName,
-                Slots = sp.Talks
-                    .OrderBy(t => t.StartTime)
-                    .Select(t => new TalkDto
-                    {
-                        SpeakerId = sp.Id,
-                        Speaker = sp.FullName,
-                        RoomId = t.RoomId,
-                        Room = t.Room.Name,
-                        StartTime = t.StartTime,
-                        EndTime = t.EndTime
-                    }).ToList()
+                Slots = slots
             };
         }
     }

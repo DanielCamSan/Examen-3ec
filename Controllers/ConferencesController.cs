@@ -12,15 +12,14 @@ namespace _3ecexamen.Controllers
 
         public ConferencesController(IConferenceService service) => _service = service;
 
-        // POST: api/v1/conferences
+       
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateConferenceDto dto)
         {
             var id = await _service.CreateConferenceAsync(dto);
             return CreatedAtAction(nameof(GetAgenda), new { id }, new { id });
         }
-
-        // GET: api/v1/conferences/{id}/agenda
+        
         [HttpGet("{id:int}/agenda")]
         public async Task<IActionResult> GetAgenda([FromRoute] int id)
         {
@@ -30,3 +29,5 @@ namespace _3ecexamen.Controllers
         }
     }
 }
+
+

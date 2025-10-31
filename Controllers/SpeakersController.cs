@@ -9,12 +9,22 @@ namespace _3ecexamen.Controllers
     public class SpeakersController : ControllerBase
     {
         //TODO  pista: usa speaker y talk service
+        private readonly ISpeakerService _speaker;
+        private readonly ITalkService _talk;
+
+        public SpeakersController(ISpeakerService speaker, ITalkService talk)
+        {
+            _speaker = speaker;
+            _talk = talk;
+        }
 
         // POST: api/v1/speakers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
             //TODO
+            var id= await _speaker.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id }, new {id});
         }
 
         // GET: api/v1/speakers/{id}/schedule
@@ -22,6 +32,9 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> GetSchedule(int id)
         {
             //TODO
+            var data= await _speaker.GetScheduleAsync(id);
+            if (data==null) return NotFound($"No encontrado");
+            return Ok(data);
         }
 
         // POST: api/v1/speakers/talks
@@ -29,6 +42,8 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
             //TODO
+            await _talk.AddTalkAsync(dto);
+            return Ok();
         }
     }
 }

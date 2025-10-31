@@ -13,7 +13,16 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-//TODO 
+// Registrar Repositorios
+builder.Services.AddScoped<IConferenceRepository, ConferenceRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ISpeakerRepository, SpeakerRepository>();
+builder.Services.AddScoped<ITalkRepository, TalkRepository>();
+
+// Registrar Servicios
+builder.Services.AddScoped<IConferenceService, ConferenceService>();
+builder.Services.AddScoped<ISpeakerService, SpeakerService>();
+builder.Services.AddScoped<ITalkService, TalkService>();
 
 var app = builder.Build();
 

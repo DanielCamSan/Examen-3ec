@@ -10,9 +10,7 @@ namespace _3ecexamen.Entities
         public string City { get; set; } = default!;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public List<Room> Rooms { get; set; } = new();
 
-        //TODO
-        // 1:N Conference -> Rooms
-        
     }
 }

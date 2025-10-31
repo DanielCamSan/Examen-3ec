@@ -42,6 +42,7 @@ namespace _3ecexamen.DTOs
         [Required] public DateTime EndDate { get; set; }
 
         // Optional: create rooms along with conference
+        public bool CreateRooms { get; set; } = false;//tal vez este mal
         public List<CreateRoomDto> Rooms { get; set; } = new();
     }
 

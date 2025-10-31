@@ -9,10 +9,10 @@ namespace _3ecexamen.Repositories
         private readonly AppDbContext _ctx;
         public RoomRepository(AppDbContext ctx) => _ctx = ctx;
 
-        public Task<bool> ExistsAsync(int id)
-        {
             //TODO
+        public Task<bool> ExistsAsync(int id)=>
+            _ctx.Rooms.AnyAsync(r => r.Id == id);    
 
-        }
+        
     }
 }

@@ -34,21 +34,29 @@ namespace _3ecexamen.Services
             var conf = await _confs.GetAgendaAsync(id);
             if (conf == null) return null;
             //TODO  pista: devuelve usando ConferenceAgendaDto
-           return new ConferenceAgendaDto
-           {
-               Conference= conf.Conference,
-                Slots= conf.Slots
-                     .OrderBy(s => s.StartTime)
-                     .Select(s => new TalkDto
+            return new ConferenceAgendaDto
+            {
+                Conference = conf.Title,
+                City = conf.City,
+                Rooms = conf.Rooms
+                 .OrderBy(r => r.Name)
+                 .Select(r => new RoomScheduleDto
+                 {
+                     Room = r.Name,
+                     Talks = r.Talks
+                     .OrderBy(t => t.StartTime)
+                     .Select(t => new TalkDto
                      {
-                          SpeakerId = s.SpeakerId,
-                          Speaker = s.Speaker,
-                          RoomId = s.RoomId,
-                          Room = s.Room,
-                          StartTime = s.StartTime,
-                          EndTime = s.EndTime
+                         SpeakerId = t.SpeakerId,
+                         Speaker = t.Speaker.FullName,
+                         RoomId = t.RoomId,
+                         Room = t.Room.Name,
+                         StartTime = t.StartTime,
+                         EndTime = t.EndTime
                      }).ToList()
-           }
+                 }).ToList()
+
+            };
         }
     }
 }

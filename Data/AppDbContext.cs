@@ -47,8 +47,6 @@ namespace _3ecexamen.Data
                 .HasIndex(r => new { r.ConferenceId, r.Name })
                 .IsUnique();
 
-            // (Opcional) Índice único: Room.Name dentro de una Conference
-
         }
     }
 }

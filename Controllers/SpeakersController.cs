@@ -44,9 +44,21 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
             //TODO
-            await _talkService.AddTalkAsync(dto);
-            return Ok();
+            try
+            {
+                await _talkService.AddTalkAsync(dto);
+                return NoContent();
 
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { error = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { error = ex.Message });
+
+            }
         }
     }
 }

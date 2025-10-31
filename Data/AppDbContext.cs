@@ -26,6 +26,9 @@ namespace _3ecexamen.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // N:M con payload: Talk (clave compuesta)
+            modelBuilder.Entity<Talk>()
+                .HasKey(t => new { t.StartTime, t.EndTime });
+
             // (Opcional) Índice único: Room.Name dentro de una Conference
 
         }

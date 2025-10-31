@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Entities/Conference.cs
+using System;
 using System.Collections.Generic;
 
 namespace _3ecexamen.Entities
@@ -11,8 +12,7 @@ namespace _3ecexamen.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        //TODO
-        // 1:N Conference -> Rooms
-        
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
+
     }
 }

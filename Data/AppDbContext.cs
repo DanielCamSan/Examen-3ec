@@ -1,7 +1,7 @@
-﻿using _3ecexamen.Entities;
+﻿// Data/AppDbContext.cs
+using _3ecexamen.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace _3ecexamen.Data
 {
@@ -16,11 +16,40 @@ namespace _3ecexamen.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //TODO
+            modelBuilder.Entity<Conference>(e =>
+            {
+                e.HasKey(x => x.Id);
+                e.HasMany(c => c.Rooms)
+                 .WithOne(r => r.Conference)
+                 .HasForeignKey(r => r.ConferenceId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
 
-            // 1:N Conference -> Rooms (FK requerida, cascade)
-            // N:M con payload: Talk (clave compuesta)
-            // (Opcional) Índice único: Room.Name dentro de una Conference
+            // ROOM
+            modelBuilder.Entity<Room>(e =>
+            {
+                e.HasKey(x => x.Id);
+                e.HasIndex(x => new { x.ConferenceId, x.Name }).IsUnique();
+            });
+            modelBuilder.Entity<Speaker>(e =>
+            {
+                e.HasKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<Talk>(e =>
+            {
+                e.HasKey(t => new { t.SpeakerId, t.RoomId, t.StartTime });
+
+                e.HasOne(t => t.Speaker)
+                 .WithMany(s => s.Talks)
+                 .HasForeignKey(t => t.SpeakerId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                e.HasOne(t => t.Room)
+                 .WithMany(r => r.Talks)
+                 .HasForeignKey(t => t.RoomId)
+                 .OnDelete(DeleteBehavior.Cascade);
+            });
 
         }
     }

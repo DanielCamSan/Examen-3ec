@@ -30,7 +30,7 @@ namespace _3ecexamen.Services
             {
                 Conference = conf.Title,
                 City = conf.City,
-                Rooms= conf.Talks
+                Rooms= conf.Rooms
                 .Select(r => new RoomScheduleDto
                 {
                     Room = r.Name,

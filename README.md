@@ -1,5 +1,7 @@
 ﻿dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet tool install --global dotnet-ef
 dotnet ef migrations add InitSqlite
 dotnet ef database update
 

@@ -30,6 +30,17 @@ namespace _3ecexamen.Data
             modelBuilder.Entity<Talk>()
                  .HasKey(t => new { t.SpeakerId, t.RoomId, t.StartTime });
 
+            modelBuilder.Entity<Talk>()
+                .HasOne(t => t.Speaker)
+                .WithMany(s => s.Talks)
+                .HasForeignKey(t => t.SpeakerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Talk>()
+                .HasOne(t => t.Room)
+                .WithMany(r => r.Talks)
+                .HasForeignKey(t => t.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // (Opcional) Índice único: Room.Name dentro de una Conference
 

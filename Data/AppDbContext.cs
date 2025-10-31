@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-
 namespace _3ecexamen.Data
 {
     public class AppDbContext : DbContext
@@ -19,7 +18,24 @@ namespace _3ecexamen.Data
             //TODO
 
             // 1:N Conference -> Rooms (FK requerida, cascade)
+ 
+
+            modelBuilder.Entity<Room> ()
+                .HasOne(r =>r.Conference)
+                .WithMany(r =>r.Rooms)
+                .HasForeignKey(r => r.ConferenceId)
+                .OnDelete(DeleteBehavior.Cascade);
             // N:M con payload: Talk (clave compuesta)
+            modelBuilder.Entity<Talk>(b =>
+            {
+              b.HasKey(t => new {t.SpeakerId, t.RoomId,t.StartTime});
+              b.Property(t => t.EndTime);
+
+            });
+            modelBuilder.Entity  <Room>()
+                .HasIndex(t => new { t.ConferenceId, t.Name })
+                .IsUnique();
+            
             // (Opcional) Índice único: Room.Name dentro de una Conference
 
         }

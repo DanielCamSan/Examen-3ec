@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using _3ecexamen.Entities;
 namespace _3ecexamen.Entities
 {
     public class Conference
@@ -13,6 +13,8 @@ namespace _3ecexamen.Entities
 
         //TODO
         // 1:N Conference -> Rooms
+        //done(?)
+        public ICollection<Room> Rooms { get; set; } = new List<Room>();
         
     }
 }

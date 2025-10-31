@@ -37,3 +37,5 @@ Este starter incluye la solución con:
 ## Notas
 - El **foco** es demostrar dominio de **relaciones** y **capas** en 90 minutos.
 
+
+

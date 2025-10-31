@@ -1,6 +1,7 @@
 ﻿using _3ecexamen.DTOs;
 using _3ecexamen.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace _3ecexamen.Controllers
 {
@@ -8,27 +9,41 @@ namespace _3ecexamen.Controllers
     [Route("api/v1/[controller]")]
     public class SpeakersController : ControllerBase
     {
-        //TODO  pista: usa speaker y talk service
-
-        // POST: api/v1/speakers
+        private readonly ISpeakerService _speakerService;
+        private readonly ITalkService _talkService;
+        public SpeakersController(ISpeakerService speakerService, ITalkService talkService)
+        {
+            _speakerService = speakerService;
+            _talkService = talkService;
+        }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
-            //TODO
+            var id = await _speakerService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetSchedule), new { id }, new { id });
         }
-
-        // GET: api/v1/speakers/{id}/schedule
         [HttpGet("{id:int}/schedule")]
         public async Task<IActionResult> GetSchedule(int id)
         {
-            //TODO
+            var schedule = await _speakerService.GetScheduleAsync(id);
+            return schedule == null ? NotFound() : Ok(schedule);
         }
-
-        // POST: api/v1/speakers/talks
         [HttpPost("talks")]
         public async Task<IActionResult> AddTalk([FromBody] CreateTalkDto dto)
         {
-            //TODO
+            try
+            {
+                await _talkService.AddTalkAsync(dto);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
         }
     }
 }

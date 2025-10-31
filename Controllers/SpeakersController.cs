@@ -9,12 +9,14 @@ namespace _3ecexamen.Controllers
     public class SpeakersController : ControllerBase
     {
         //TODO  pista: usa speaker y talk service
+        
 
         // POST: api/v1/speakers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSpeakerDto dto)
         {
             //TODO
+
         }
 
         // GET: api/v1/speakers/{id}/schedule
@@ -22,6 +24,7 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> GetSchedule(int id)
         {
             //TODO
+
         }
 
         // POST: api/v1/speakers/talks

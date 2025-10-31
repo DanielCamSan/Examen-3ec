@@ -20,7 +20,11 @@ namespace _3ecexamen.Services
                 Title = dto.Title,
                 City = dto.City,
                 StartDate = dto.StartDate,
-                EndDate = dto.EndDate
+                EndDate = dto.EndDate,
+                Rooms = dto.Rooms.Select(r => new Room
+                {
+                    Name = r.Name
+                }).ToList(),
             };
             await _confs.AddAsync(conference);
             await _confs.SaveChangesAsync();

@@ -17,7 +17,7 @@ namespace _3ecexamen.Controllers
         public async Task<IActionResult> Create([FromBody] CreateConferenceDto dto)
         {
             var id = await _service.CreateConferenceAsync(dto);
-            return CreatedAtAction(nameof(GetAgenda), new { id }, new { id });
+            return Ok();
         }
 
         // GET: api/v1/conferences/{id}/agenda

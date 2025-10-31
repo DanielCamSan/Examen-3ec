@@ -36,14 +36,14 @@ namespace _3ecexamen.Services
             //TODO  pista: devuelve usando ConferenceAgendaDto
             return new ConferenceAgendaDto
             {
-                Conference = conf.Title,//festival
+                Conference = conf.Title,
                 City = conf.City,
-                Rooms= conf.Rooms //stages
+                Rooms= conf.Rooms 
                        .OrderBy(s=>s.Name)
                        .Select(s=>new RoomScheduleDto
                        {
                            Room = s.Name,
-                           Talks = s.Talks //perfomance
+                           Talks = s.Talks 
                            .OrderBy(p => p.StartTime)
                            .Select(p => new TalkDto
                            {

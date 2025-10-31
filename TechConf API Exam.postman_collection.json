@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "1eec403a-69cb-47af-9f2b-e268b879351a",
+		"name": "TechConf API Exam",
+		"description": "Colección de pruebas para examen TecWeb - Conferencia Tech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9796556"
+	},
+	"item": [
+		{
+			"name": "Create Conference",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"TechConf Cochabamba 2025\",\n  \"city\": \"Cochabamba\",\n  \"startDate\": \"2025-11-10T08:00:00Z\",\n  \"endDate\": \"2025-11-12T18:00:00Z\",\n  \"rooms\": [\n    { \"name\": \"Auditorio Principal\" },\n    { \"name\": \"Sala Innovación\" }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/conferences",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"conferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Conference Agenda",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/conferences/1/agenda",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"conferences",
+						"1",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Speaker",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fullName\": \"Dorian Condori\",\n  \"topicArea\": \"Inteligencia Artificial\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/speakers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"speakers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Another Speaker",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fullName\": \"María Suárez\",\n  \"topicArea\": \"Desarrollo Web\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/speakers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"speakers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Talk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"speakerId\": 1,\n  \"roomId\": 1,\n  \"startTime\": \"2025-11-10T09:00:00Z\",\n  \"endTime\": \"2025-11-10T10:30:00Z\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/speakers/talks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"speakers",
+						"talks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Another Talk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"speakerId\": 2,\n  \"roomId\": 2,\n  \"startTime\": \"2025-11-10T11:00:00Z\",\n  \"endTime\": \"2025-11-10T12:00:00Z\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/speakers/talks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"speakers",
+						"talks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Speaker Schedule",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/speakers/2/schedule",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"speakers",
+						"2",
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api/v1"
+		}
+	]
+}

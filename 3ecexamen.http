@@ -1,0 +1,6 @@
+@_3ecexamen_HostAddress = http://localhost:5133
+
+GET {{_3ecexamen_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -88,9 +88,14 @@ namespace _3ecexamen.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rooms_ConferenceId_Name",
+                name: "IX_Rooms_ConferenceId",
                 table: "Rooms",
-                columns: new[] { "ConferenceId", "Name" },
+                column: "ConferenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_Name",
+                table: "Rooms",
+                column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(

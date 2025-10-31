@@ -60,7 +60,7 @@ namespace _3ecexamen.Services
                     }).ToList(),
                 }).ToList(),
             };
-           
+           return agenda;
         }
     }
 }

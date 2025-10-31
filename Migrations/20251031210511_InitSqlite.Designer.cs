@@ -11,7 +11,7 @@ using _3ecexamen.Data;
 namespace _3ecexamen.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031231927_InitSqlite")]
+    [Migration("20251031210511_InitSqlite")]
     partial class InitSqlite
     {
         /// <inheritdoc />
@@ -60,7 +60,9 @@ namespace _3ecexamen.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConferenceId", "Name")
+                    b.HasIndex("ConferenceId");
+
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Rooms");

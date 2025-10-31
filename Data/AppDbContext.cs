@@ -17,10 +17,24 @@ namespace _3ecexamen.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //TODO
+            base.OnModelCreating(modelBuilder);
+
 
             // 1:N Conference -> Rooms (FK requerida, cascade)
+            modelBuilder.Entity<Room>()
+                .HasOne(r => r.Conference)
+                .WithMany(s=>s.Rooms)
+                .HasForeignKey(r=>r.ConferenceId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             // N:M con payload: Talk (clave compuesta)
+            modelBuilder.Entity<Talk>()
+                .HasKey(p => new { p.SpeakerId, p.RoomId, p.StartTime });
+
             // (Opcional) Índice único: Room.Name dentro de una Conference
+            modelBuilder.Entity<Room>()
+                .HasIndex(r => new { r.ConferenceId, r.Name }).IsUnique();
 
         }
     }

@@ -7,7 +7,7 @@ namespace _3ecexamen.Entities
         public int Id { get; set; }
         public string Name { get; set; } = default!;
 
-        public int ConferenceId { get; set; }
+        public int ConferenceId { get; set; } //FK
         public Conference Conference { get; set; } = default!;
 
         // N:M Speakers via Talk

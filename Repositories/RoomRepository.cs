@@ -12,6 +12,7 @@ namespace _3ecexamen.Repositories
         public Task<bool> ExistsAsync(int id)
         {
             //TODO
+            return _ctx.Rooms.AnyAsync(r => r.Id == id);
         }
     }
 }

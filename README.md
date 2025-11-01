@@ -12,9 +12,6 @@ dotnet ef database update
 
     Un Speaker puede dar charlas en muchas Rooms, y una Room recibe muchos Speakers a través de Talk, con horario (N:M con payload StartTime/EndTime).
 
-    Un Attendee puede comprar muchos Tickets (1:N). Cada Ticket pertenece a una Conference.
-
-    Un Attendee puede tener un AttendeeProfile (1:1 opcional, con PK compartida).
 
 ## Lo que ya tienes listo
 
